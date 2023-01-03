@@ -175,3 +175,4 @@ class ModPaths extends Paths
 		return FlxAtlasFrames.fromSpriteSheetPacker(image(key, mod), file('images/$key.txt'));
 	}
 }
+#end
