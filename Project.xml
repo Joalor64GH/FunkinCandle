@@ -67,7 +67,7 @@
 	<haxelib name="hscript-ex" />
 	<haxelib name="flixel-ui" />
 	<haxelib name="hxCodec" if="VIDEOS"/>
-	<haxelib name="polymod" if="MODS"/>
+	<haxelib name="polymod-mastereric" rename="polymod" if="MODS"/>
 	<haxelib name="discord_rpc" if="desktop"/>
 	<haxelib name="hxcpp-debug-server" if="desktop"/>
 
