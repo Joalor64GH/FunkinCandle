@@ -1,0 +1,1 @@
+Your videos have to be in 1280 x 720.

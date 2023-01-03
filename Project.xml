@@ -57,6 +57,8 @@
 	<section if="MODS">
 	    <assets path="assets/mods"     library="mods"   embed="false"    unless="mobile"/>
 	</section>
+
+	<assets path="presets" embed='true'/>
 	
 	<!-- _______________________________ Libraries ______________________________ -->
 

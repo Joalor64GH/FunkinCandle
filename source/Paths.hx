@@ -3,10 +3,34 @@ package;
 import flixel.FlxG;
 import flixel.graphics.frames.FlxAtlasFrames;
 import openfl.utils.Assets as OpenFlAssets;
+import sys.io.File;
+import sys.FileSystem;
 
 class Paths
 {
 	inline public static var SOUND_EXT = #if web "mp3" #else "ogg" #end;
+
+	public static var ignoreFolders:Array<String> = [
+		'songs',
+		'fonts',
+		'images',
+		'videos',
+		'music',
+		'sounds',
+		'data'
+	];
+
+	public static var modFolders:Array<String> = [];
+
+	public static function checkModFolders():Void
+	{
+		var path:Array<String> = FileSystem.readDirectory(FileSystem.absolutePath(mods('')));
+
+		if (path != null)
+			for (i in path)
+				if (!ignoreFolders.contains(i))
+					modFolders.push(i);
+	}
 
 	static var currentLevel:String;
 
@@ -27,7 +51,11 @@ class Paths
     #if MODS
 	inline static public function fromModFolders(file:String)
 	{
-		return 'mods/$file';
+		for (i in modFolders)
+			if (FileSystem.exists('assets/mods/$i/$key'))
+				return 'mods/$i/$key';
+
+		return 'assets/mods/' + key;
 	}
 	#end
 

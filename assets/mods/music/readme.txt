@@ -1,0 +1,1 @@
+Your music file should be in either an .ogg or .mp3, depending on what your using.
