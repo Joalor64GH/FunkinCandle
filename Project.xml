@@ -4,9 +4,6 @@
 
 	<app title="Funkin' Candle" file="Candle" package="com.joalor64gh.candle" main="Main" version="0.1" company="Joalor64GH" />
 
-	<!--Switch Export with Unique ApplicationID and Icon-->
-	<set name="APP_ID" value="0x0100f6c013bbc000" />
-
 	<!--The flixel preloader is not accurate in Chrome. You can use it regularly if you embed the swf into a html file
 		or you can set the actual size of your file manually at "FlxPreloaderBase-onUpdate-bytesTotal"-->
 	<!-- <app preloader="Preloader" resizable="true" /> -->
@@ -40,6 +37,7 @@
 
 	<classpath name="source" />
 
+    <assets path="assets/fonts" embed='true'/>
 	<assets path="assets/preload" rename="assets" exclude="*.ogg" if="web"/>
 	<assets path="assets/preload" rename="assets" exclude="*.mp3" unless="web"/>
 	
@@ -89,24 +87,15 @@
 	<assets path="assets/week5"    library="week5"    exclude="*.mp3" unless="web"/>
 	<assets path="assets/week6"    library="week6"    exclude="*.ogg" if="web"/>
 	<assets path="assets/week6"    library="week6"    exclude="*.mp3" unless="web"/>
-
-	<!-- NOTE FOR FUTURE SELF SINCE FONTS ARE ALWAYS FUCKY 
-		TO FIX ONE OF THEM, I CONVERTED IT TO OTF. DUNNO IF YOU NEED TO
-		THEN UHHH I USED THE NAME OF THE FONT WITH SETFORMAT() ON THE TEXT!!!
-		NOT USING A DIRECT THING TO THE ASSET!!!
-	-->
-	<assets path="assets/fonts" embed='true'/>
+	
 	<!-- _______________________________ Libraries ______________________________ -->
 
 	<haxelib name="flixel" />
 	<haxedev set='webgl' />
-
-	<!--In case you want to use the addons package-->
 	<haxelib name="flixel-addons" />
 	<haxelib name="hscript" />
-
-	<!--In case you want to use the ui package-->
 	<haxelib name="flixel-ui" />
+	<haxelib name="hxCodec" />
 	<haxelib name="discord_rpc" if="desktop"/>
 	<haxelib name="hxcpp-debug-server" if="desktop"/>
 

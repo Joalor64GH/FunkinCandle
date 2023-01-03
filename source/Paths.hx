@@ -100,6 +100,11 @@ class Paths
 		return getPath('images/$key.png', IMAGE, library);
 	}
 
+	inline static public function video(key:String, ?library:String)
+	{
+		return getPath('videos/$key.mp4', library);
+	}
+
 	inline static public function font(key:String)
 	{
 		return 'assets/fonts/$key';
