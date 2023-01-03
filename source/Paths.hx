@@ -56,16 +56,26 @@ class Paths
 	}
 
     #if MODS
-	inline static public function fromModFolders(file:String, ?library:String)
+	inline static public function fromModFolders(file:String, ?mod:String)
 	{
-		return 'mods/$file';
+		return 'mods/$mod/$file';
+	}
+
+	inline static public function pack(file:String, ?mod:String)
+	{
+		return fromModFolders('pack.json');
+	}
+
+	inline static public function icon(file:String, ?mod:String)
+	{
+		return fromModFolders('pack.png');
 	}
 	#end
 
 	inline static public function txt(key:String, ?library:String)
 	{
 		#if MODS
-		return fromModFolders('data/$key.txt', TEXT, library);
+		return fromModFolders('data/$key.txt', TEXT, mod);
 		#else
 		return getPath('data/$key.txt', TEXT, library);
 		#end
@@ -73,17 +83,29 @@ class Paths
 
 	inline static public function xml(key:String, ?library:String)
 	{
+		#if MODS
+		return fromModFolders('data/$key.xml', TEXT, library, mod);
+		#else
 		return getPath('data/$key.xml', TEXT, library);
+		#end
 	}
 
 	inline static public function json(key:String, ?library:String)
 	{
+		#if MODS
+		return fromModFolders('data/$key.json', TEXT, library, mod);
+		#else
 		return getPath('data/$key.json', TEXT, library);
+		#end
 	}
 
 	static public function sound(key:String, ?library:String)
 	{
+		#if MODS
+		return fromModFolders('sounds/$key.$SOUND_EXT', SOUND, mod);
+		#else
 		return getPath('sounds/$key.$SOUND_EXT', SOUND, library);
+		#end
 	}
 
 	inline static public function soundRandom(key:String, min:Int, max:Int, ?library:String)
@@ -93,32 +115,56 @@ class Paths
 
 	inline static public function music(key:String, ?library:String)
 	{
+		#if MODS
+		return fromModFolders('music/$key.$SOUND_EXT', MUSIC, mod);
+		#else
 		return getPath('music/$key.$SOUND_EXT', MUSIC, library);
+		#end
 	}
 
 	inline static public function voices(song:String)
 	{
+		#if MODS
+		return 'songs:assets/mods/$mod/songs/${song.toLowerCase()}/Voices.$SOUND_EXT';
+		#else
 		return 'songs:assets/songs/${song.toLowerCase()}/Voices.$SOUND_EXT';
+		#end
 	}
 
 	inline static public function inst(song:String)
 	{
+		#if MODS
+		return 'songs:assets/mods/$mod/songs/${song.toLowerCase()}/Inst.$SOUND_EXT';
+		#else
 		return 'songs:assets/songs/${song.toLowerCase()}/Inst.$SOUND_EXT';
+		#end
 	}
 
 	inline static public function image(key:String, ?library:String)
 	{
+		#if MODS
+		return fromModFolders('images/$key.png', IMAGE, mod);
+		#else
 		return getPath('images/$key.png', IMAGE, library);
+		#end
 	}
 
 	inline static public function video(key:String, ?library:String)
 	{
+		#if MODS
+		return fromModFolders('videos/$key.mp4', mod);
+		#else
 		return getPath('videos/$key.mp4', library);
+		#end
 	}
 
 	inline static public function font(key:String)
 	{
+		#if MODS
+		return 'assets/mods/$mod/fonts/$key';
+		#else
 		return 'assets/fonts/$key';
+		#end
 	}
 
 	inline static public function getSparrowAtlas(key:String, ?library:String)
