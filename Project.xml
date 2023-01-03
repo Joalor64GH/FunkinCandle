@@ -55,7 +55,7 @@
 	<assets path="assets/songs"    library="songs"    exclude="*.ogg" if="web"/>
 	<assets path="assets/songs"    library="songs"    exclude="*.mp3|*mp4" unless="web"/>
 	<section if="MODS">
-	    <assets path="assets/mods"     library="mods"   unless="mobile"/>
+	    <assets path="assets/mods"     library="mods"   embed="false"    unless="mobile"/>
 	</section>
 	
 	<!-- _______________________________ Libraries ______________________________ -->
