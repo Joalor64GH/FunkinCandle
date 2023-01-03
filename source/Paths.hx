@@ -2,7 +2,6 @@ package;
 
 import flixel.FlxG;
 import flixel.graphics.frames.FlxAtlasFrames;
-import openfl.utils.AssetType;
 import openfl.utils.Assets as OpenFlAssets;
 
 class Paths
@@ -26,17 +25,17 @@ class Paths
 	}
 
     #if MODS
-	inline static public function fromModFolders(file:String, ?mod:String)
+	inline static public function fromModFolders(file:String)
 	{
 		return 'mods/$mod/$file';
 	}
 
-	inline static public function pack(file:String, ?mod:String)
+	inline static public function pack(file:String)
 	{
 		return fromModFolders('pack.json');
 	}
 
-	inline static public function icon(file:String, ?mod:String)
+	inline static public function icon(file:String)
 	{
 		return fromModFolders('pack.png');
 	}
@@ -45,7 +44,7 @@ class Paths
 	inline static public function txt(key:String)
 	{
 		#if MODS
-		return fromModFolders('data/$key.txt', mod);
+		return fromModFolders('data/$key.txt');
 		#else
 		return file('data/$key.txt');
 		#end
@@ -54,7 +53,7 @@ class Paths
 	inline static public function xml(key:String)
 	{
 		#if MODS
-		return fromModFolders('data/$key.xml', mod);
+		return fromModFolders('data/$key.xml');
 		#else
 		return file('data/$key.xml');
 		#end
@@ -63,7 +62,7 @@ class Paths
 	inline static public function json(key:String)
 	{
 		#if MODS
-		return fromModFolders('data/$key.json', mod);
+		return fromModFolders('data/$key.json');
 		#else
 		return file('data/$key.json');
 		#end
@@ -72,7 +71,7 @@ class Paths
 	inline static public function hx(key:String)
 	{
 		#if MODS
-		return fromModFolders('data/$key.hx', mod);
+		return fromModFolders('data/$key.hx');
 		#else
 		return file('data/$key.hx');
 		#end
@@ -81,7 +80,7 @@ class Paths
 	static public function sound(key:String)
 	{
 		#if MODS
-		return fromModFolders('sounds/$key.$SOUND_EXT', mod);
+		return fromModFolders('sounds/$key.$SOUND_EXT');
 		#else
 		return file('sounds/$key.$SOUND_EXT');
 		#end
@@ -95,7 +94,7 @@ class Paths
 	inline static public function music(key:String)
 	{
 		#if MODS
-		return fromModFolders('music/$key.$SOUND_EXT', mod);
+		return fromModFolders('music/$key.$SOUND_EXT');
 		#else
 		return file('music/$key.$SOUND_EXT');
 		#end
@@ -122,7 +121,7 @@ class Paths
 	inline static public function image(key:String)
 	{
 		#if MODS
-		return fromModFolders('images/$key.png', mod);
+		return fromModFolders('images/$key.png');
 		#else
 		return file('images/$key.png');
 		#end
@@ -131,7 +130,7 @@ class Paths
 	inline static public function video(key:String)
 	{
 		#if MODS
-		return fromModFolders('videos/$key.mp4', mod);
+		return fromModFolders('videos/$key.mp4');
 		#else
 		return file('videos/$key.mp4');
 		#end
@@ -147,14 +146,14 @@ class Paths
 	}
 
 	#if MODS
-	inline static public function getSparrowAtlas(key:String, ?mod:String)
+	inline static public function getModSparrowAtlas(key:String)
 	{
-		return FlxAtlasFrames.fromSparrow(image(key, mod), file('images/$key.xml', mod));
+		return FlxAtlasFrames.fromSparrow(image(key), fromModFolders('images/$key.xml'));
 	}
 
-	inline static public function getPackerAtlas(key:String, ?mod:String)
+	inline static public function getModPackerAtlas(key:String)
 	{
-		return FlxAtlasFrames.fromSpriteSheetPacker(image(key, mod), file('images/$key.txt', mod));
+		return FlxAtlasFrames.fromSpriteSheetPacker(image(key), fromModFolders('images/$key.txt'));
 	}
 	#end
 
