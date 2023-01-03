@@ -31,7 +31,6 @@
 
     <!-- CUSTOM DEFINES -->
 	<define name="MODS" if="desktop"/>
-	<define name="HSCRIPT" if="desktop"/>
 	<define name="VIDEOS" if="windows || web" unless="32bits"/>
 	<define name="PRELOAD_ALL" unless="web" />
 	<define name="NO_PRELOAD_ALL" unless="PRELOAD_ALL"/>
