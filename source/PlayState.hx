@@ -144,6 +144,8 @@ class PlayState extends MusicBeatState
 	public var script:Script;
 	#end
 
+	public static var instance:PlayState;
+
 	override public function create()
 	{
 		if (FlxG.sound.music != null)
@@ -167,6 +169,8 @@ class PlayState extends MusicBeatState
 
 		Conductor.mapBPMChanges(SONG);
 		Conductor.changeBPM(SONG.bpm);
+
+		instance = this;
 
 		switch (SONG.song.toLowerCase())
 		{
@@ -2365,6 +2369,8 @@ class PlayState extends MusicBeatState
 			script.destroy();
 		}
 		#end
+
+		instance = null;
 
 		super.destroy();
 	}

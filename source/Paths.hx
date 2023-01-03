@@ -27,19 +27,8 @@ class Paths
     #if MODS
 	inline static public function fromModFolders(file:String)
 	{
-		return 'mods/$mod/$file';
+		return 'mods/$file';
 	}
-
-	inline static public function pack(file:String)
-	{
-		return fromModFolders('pack.json');
-	}
-
-	inline static public function icon(file:String)
-	{
-		return fromModFolders('pack.png');
-	}
-	#end
 
 	inline static public function txt(key:String)
 	{
@@ -103,7 +92,7 @@ class Paths
 	inline static public function voices(song:String)
 	{
 		#if MODS
-		return 'songs:assets/mods/$mod/songs/${song.toLowerCase()}/Voices.$SOUND_EXT';
+		return 'songs:assets/mods/songs/${song.toLowerCase()}/Voices.$SOUND_EXT';
 		#else
 		return 'songs:assets/songs/${song.toLowerCase()}/Voices.$SOUND_EXT';
 		#end
@@ -112,7 +101,7 @@ class Paths
 	inline static public function inst(song:String)
 	{
 		#if MODS
-		return 'songs:assets/mods/$mod/songs/${song.toLowerCase()}/Inst.$SOUND_EXT';
+		return 'songs:assets/mods/songs/${song.toLowerCase()}/Inst.$SOUND_EXT';
 		#else
 		return 'songs:assets/songs/${song.toLowerCase()}/Inst.$SOUND_EXT';
 		#end
@@ -139,7 +128,7 @@ class Paths
 	inline static public function font(key:String)
 	{
 		#if MODS
-		return 'assets/mods/$mod/fonts/$key';
+		return 'assets/mods/fonts/$key';
 		#else
 		return 'assets/fonts/$key';
 		#end
@@ -167,11 +156,8 @@ class Paths
 		return FlxAtlasFrames.fromSpriteSheetPacker(image(key), file('images/$key.txt'));
 	}
 
-	inline static public function formatToSongPath(path:String) {
-		var invalidChars = ~/[~&\\;:<>#]/;
-		var hideChars = ~/[.,'"%?!]/;
-
-		var path = invalidChars.split(path.replace(' ', '-')).join("-");
-		return hideChars.split(path).join("").toLowerCase();
+	inline static public function formatToSongPath(path:String)
+	{
+		return path.toLowerCase().replace(' ', '-');
 	}
 }
