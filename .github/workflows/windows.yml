@@ -1,0 +1,46 @@
+name: Main Build
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+  workflow_dispatch:
+
+jobs:
+  buildWindows:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@main
+
+      - uses: krdlab/setup-haxe@master
+        with:
+          haxe-version: 4.2.5
+      - name: Install Haxelib
+        run: |
+          haxelib setup C:/haxelib
+          haxelib install hxcpp > nul
+          haxelib install lime 8.0.0
+          haxelib install openfl 9.2.0
+          haxelib --never install flixel
+          haxelib run lime setup flixel
+          haxelib run lime setup
+          haxelib install flixel-ui
+          haxelib install flixel-addons
+          haxelib install hscript
+          haxelib git hscript-ex https://github.com/ianharrigan/hscript-ex
+          haxelib git discord_rpc https://github.com/Aidan63/linc_discord-rpc
+          haxelib install hxcpp-debug-server
+          haxelib list
+        shell: cmd
+      - name: Create Version Tag
+        run: echo "${{github.run_id}}" > VERSION
+      - name: Compile
+        run: haxelib run lime build windows --app-version="4.0.0-${{ github.run_id}}"
+      - name: Publish Artifact
+        uses: actions/upload-artifact@main
+        with:
+          name: windowsBuild
+          path: export/release/windows/bin
