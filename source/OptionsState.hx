@@ -6,7 +6,7 @@ import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
 
-class OptionsSubState extends MusicBeatSubstate
+class OptionsSubState extends MusicBeatState
 {
 	var textMenuItems:Array<String> = ['Master Volume', 'Sound Volume', 'Controls'];
 
@@ -57,14 +57,9 @@ class OptionsSubState extends MusicBeatSubstate
 				txt.color = FlxColor.YELLOW;
 		});
 
-		if (controls.ACCEPT)
+		if (controls.BACK)
 		{
-			switch (textMenuItems[curSelected])
-			{
-				case "Controls":
-					FlxG.state.closeSubState();
-					FlxG.state.openSubState(new ControlsSubState());
-			}
+			FlxG.switchState(new MainMenuState());
 		}
 	}
 }
