@@ -6,7 +6,7 @@ import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
 
-class OptionsSubState extends MusicBeatState
+class OptionsMenu extends MusicBeatState
 {
 	var textMenuItems:Array<String> = ['Master Volume', 'Sound Volume', 'Controls'];
 

@@ -42,6 +42,7 @@
 	<assets path="assets/preload" rename="assets" exclude="*.mp3|*mp4" unless="web"/>
 	
 	<!-- <define name="PRELOAD_ALL" /> -->
+	<define name="MODS" if="desktop">
 	<define name="PRELOAD_ALL" unless="web" />
 	<define name="NO_PRELOAD_ALL" unless="PRELOAD_ALL"/>
 	
@@ -88,8 +89,8 @@
 	<assets path="assets/week5"    library="week5"    exclude="*.ogg" if="web"/>
 	<assets path="assets/week5"    library="week5"    exclude="*.mp3|*mp4" unless="web"/>
 	<assets path="assets/week6"    library="week6"    exclude="*.ogg" if="web"/>
-	<assets path="assets/week6"    library="week6"    exclude="*.mp3|*mp4|*mp4" unless="web"/>
-	<assets path="assets/mods"     library="mods"     unless="mobile"/>
+	<assets path="assets/week6"    library="week6"    exclude="*.mp3|*mp4" unless="web"/>
+	<assets path="assets/mods"     library="mods"     if="MODS"            unless="mobile"/>
 	
 	<!-- _______________________________ Libraries ______________________________ -->
 
@@ -99,7 +100,7 @@
 	<haxelib name="hscript" />
 	<haxelib name="flixel-ui" />
 	<haxelib name="hxCodec" />
-	<haxelib name="polymod" />
+	<haxelib name="polymod" if="MODS"/>
 	<haxelib name="discord_rpc" if="desktop"/>
 	<haxelib name="hxcpp-debug-server" if="desktop"/>
 

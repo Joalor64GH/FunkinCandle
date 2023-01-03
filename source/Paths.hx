@@ -55,9 +55,20 @@ class Paths
 		return getPath(file, type, library);
 	}
 
+    #if MODS
+	inline static public function fromModFolders(file:String, ?library:String)
+	{
+		return 'mods/$file';
+	}
+	#end
+
 	inline static public function txt(key:String, ?library:String)
 	{
+		#if MODS
+		return fromModFolders('data/$key.txt', TEXT, library);
+		#else
 		return getPath('data/$key.txt', TEXT, library);
+		#end
 	}
 
 	inline static public function xml(key:String, ?library:String)
