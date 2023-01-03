@@ -16,43 +16,13 @@ class Paths
 		currentLevel = name.toLowerCase();
 	}
 
-	static function getPath(file:String, type:AssetType, library:Null<String>)
+	static public function file(file:String)
 	{
-		if (library != null)
-			return getLibraryPath(file, library);
+		var path = 'assets/$file';
+		if (currentLevel != null && OpenFlAssets.exists('$currentLevel:$path'))
+			return '$currentLevel:$path';
 
-		if (currentLevel != null)
-		{
-			var levelPath = getLibraryPathForce(file, currentLevel);
-			if (OpenFlAssets.exists(levelPath, type))
-				return levelPath;
-
-			levelPath = getLibraryPathForce(file, "shared");
-			if (OpenFlAssets.exists(levelPath, type))
-				return levelPath;
-		}
-
-		return getPreloadPath(file);
-	}
-
-	static public function getLibraryPath(file:String, library = "preload")
-	{
-		return if (library == "preload" || library == "default") getPreloadPath(file); else getLibraryPathForce(file, library);
-	}
-
-	inline static function getLibraryPathForce(file:String, library:String)
-	{
-		return '$library:assets/$library/$file';
-	}
-
-	inline static function getPreloadPath(file:String)
-	{
-		return 'assets/$file';
-	}
-
-	inline static public function file(file:String, type:AssetType = TEXT, ?library:String)
-	{
-		return getPath(file, type, library);
+		return path;
 	}
 
     #if MODS
@@ -72,53 +42,53 @@ class Paths
 	}
 	#end
 
-	inline static public function txt(key:String, ?library:String)
+	inline static public function txt(key:String)
 	{
 		#if MODS
-		return fromModFolders('data/$key.txt', TEXT, mod);
+		return fromModFolders('data/$key.txt', mod);
 		#else
-		return getPath('data/$key.txt', TEXT, library);
+		return file('data/$key.txt');
 		#end
 	}
 
-	inline static public function xml(key:String, ?library:String)
+	inline static public function xml(key:String)
 	{
 		#if MODS
-		return fromModFolders('data/$key.xml', TEXT, library, mod);
+		return fromModFolders('data/$key.xml', mod);
 		#else
-		return getPath('data/$key.xml', TEXT, library);
+		return file('data/$key.xml');
 		#end
 	}
 
-	inline static public function json(key:String, ?library:String)
+	inline static public function json(key:String)
 	{
 		#if MODS
-		return fromModFolders('data/$key.json', TEXT, library, mod);
+		return fromModFolders('data/$key.json', mod);
 		#else
-		return getPath('data/$key.json', TEXT, library);
+		return file('data/$key.json');
 		#end
 	}
 
-	static public function sound(key:String, ?library:String)
+	static public function sound(key:String)
 	{
 		#if MODS
-		return fromModFolders('sounds/$key.$SOUND_EXT', SOUND, mod);
+		return fromModFolders('sounds/$key.$SOUND_EXT', mod);
 		#else
-		return getPath('sounds/$key.$SOUND_EXT', SOUND, library);
+		return file('sounds/$key.$SOUND_EXT');
 		#end
 	}
 
-	inline static public function soundRandom(key:String, min:Int, max:Int, ?library:String)
+	inline static public function soundRandom(key:String, min:Int, max:Int)
 	{
-		return sound(key + FlxG.random.int(min, max), library);
+		return sound(key + FlxG.random.int(min, max));
 	}
 
-	inline static public function music(key:String, ?library:String)
+	inline static public function music(key:String)
 	{
 		#if MODS
-		return fromModFolders('music/$key.$SOUND_EXT', MUSIC, mod);
+		return fromModFolders('music/$key.$SOUND_EXT', mod);
 		#else
-		return getPath('music/$key.$SOUND_EXT', MUSIC, library);
+		return file('music/$key.$SOUND_EXT');
 		#end
 	}
 
@@ -140,21 +110,21 @@ class Paths
 		#end
 	}
 
-	inline static public function image(key:String, ?library:String)
+	inline static public function image(key:String)
 	{
 		#if MODS
-		return fromModFolders('images/$key.png', IMAGE, mod);
+		return fromModFolders('images/$key.png', mod);
 		#else
-		return getPath('images/$key.png', IMAGE, library);
+		return file('images/$key.png');
 		#end
 	}
 
-	inline static public function video(key:String, ?library:String)
+	inline static public function video(key:String)
 	{
 		#if MODS
 		return fromModFolders('videos/$key.mp4', mod);
 		#else
-		return getPath('videos/$key.mp4', library);
+		return file('videos/$key.mp4');
 		#end
 	}
 
@@ -179,13 +149,13 @@ class Paths
 	}
 	#end
 
-	inline static public function getSparrowAtlas(key:String, ?library:String)
+	inline static public function getSparrowAtlas(key:String)
 	{
-		return FlxAtlasFrames.fromSparrow(image(key, library), file('images/$key.xml', library));
+		return FlxAtlasFrames.fromSparrow(image(key), file('images/$key.xml'));
 	}
 
-	inline static public function getPackerAtlas(key:String, ?library:String)
+	inline static public function getPackerAtlas(key:String)
 	{
-		return FlxAtlasFrames.fromSpriteSheetPacker(image(key, library), file('images/$key.txt', library));
+		return FlxAtlasFrames.fromSpriteSheetPacker(image(key), file('images/$key.txt'));
 	}
 }
