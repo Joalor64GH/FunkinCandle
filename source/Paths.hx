@@ -95,7 +95,7 @@ class ModPaths extends Paths
 {
 	inline public static var SOUND_EXT = Paths.SOUND_EXT;
 
-	static final var currentLevel:String = Paths.currentLevel;
+	static final currentLevel:String = Paths.currentLevel;
 
 	inline static public function file(file:String)
 	{
