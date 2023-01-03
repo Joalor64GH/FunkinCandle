@@ -37,13 +37,13 @@
 
 	<classpath name="source" />
 
-    <assets path="assets/fonts" embed='true'/>
+        <assets path="assets/fonts" embed='true'/>
 	<assets path="assets/preload" rename="assets" exclude="*.ogg" if="web"/>
 	<assets path="assets/preload" rename="assets" exclude="*.mp3|*mp4" unless="web"/>
 	
-	<!-- <define name="PRELOAD_ALL" /> -->
-	<define name="MODS" if="desktop">
-	<define name="VIDEOS" if="windows || web" unless="32bits">
+	<!-- CUSTOM DEFINES -->
+	<define name="MODS" if="desktop"/>
+	<define name="VIDEOS" if="windows || web" unless="32bits"/>
 	<define name="PRELOAD_ALL" unless="web" />
 	<define name="NO_PRELOAD_ALL" unless="PRELOAD_ALL"/>
 	
@@ -91,6 +91,7 @@
 	<haxedev set='webgl' />
 	<haxelib name="flixel-addons" />
 	<haxelib name="hscript" />
+	<haxelib name="hscript-ex" />
 	<haxelib name="flixel-ui" />
 	<haxelib name="hxCodec" if="VIDEOS"/>
 	<haxelib name="polymod" if="MODS"/>

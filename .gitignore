@@ -3,3 +3,5 @@ export/
 APIStuff.hx
 NGio.hx
 source/io/
+example_mods/introMod/
+assets/mods/introMod/
