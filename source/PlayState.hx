@@ -139,6 +139,11 @@ class PlayState extends MusicBeatState
 	var detailsPausedText:String = "";
 	#end
 
+	#if HSCRIPT
+	// Hscript
+	public var script:Script;
+	#end
+
 	override public function create()
 	{
 		if (FlxG.sound.music != null)
@@ -686,6 +691,10 @@ class PlayState extends MusicBeatState
 
 		generateSong(SONG.song);
 
+		#if HSCRIPT
+		startScript();
+		#end
+
 		// add(strumLine);
 
 		camFollow = new FlxObject(0, 0, 1, 1);
@@ -803,6 +812,13 @@ class PlayState extends MusicBeatState
 		}
 
 		super.create();
+
+		#if HSCRIPT
+		if (script != null)
+		{
+			script.executeFunc("onCreate");
+		}
+		#end
 	}
 
 	function schoolIntro(?dialogueBox:DialogueBox):Void
@@ -898,6 +914,13 @@ class PlayState extends MusicBeatState
 
 		generateStaticArrows(0);
 		generateStaticArrows(1);
+
+		#if HSCRIPT
+		if (script != null)
+		{
+			script.executeFunc("onStartCountdown");
+		}
+		#end
 
 		talking = false;
 		startedCountdown = true;
@@ -1011,6 +1034,13 @@ class PlayState extends MusicBeatState
 			FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song), 1, false);
 		FlxG.sound.music.onComplete = endSong;
 		vocals.play();
+
+		#if HSCRIPT
+		if (script != null)
+		{
+			script.executeFunc("onSongStart");
+		}
+		#end
 
 		#if desktop
 		// Song duration in a float, useful for the time left feature
@@ -1687,6 +1717,13 @@ class PlayState extends MusicBeatState
 		if (FlxG.keys.justPressed.ONE)
 			endSong();
 		#end
+
+		#if HSCRIPT
+		if (script != null)
+		{
+			script.executeFunc("onUpdate");
+		}
+		#end
 	}
 
 	function endSong():Void
@@ -2318,6 +2355,19 @@ class PlayState extends MusicBeatState
 		boyfriend.playAnim('scared', true);
 		gf.playAnim('scared', true);
 	}
+	
+	override public function destroy() {
+		#if HSCRIPT
+		if (script != null)
+		{
+			script.executeFunc("destroy");
+
+			script.destroy();
+		}
+		#end
+
+		super.destroy();
+	}
 
 	override function stepHit()
 	{
@@ -2331,6 +2381,14 @@ class PlayState extends MusicBeatState
 		{
 			// dad.dance();
 		}
+
+		#if HSCRIPT
+		if (script != null)
+		{
+			script.setVariable("curStep", curStep);
+			script.executeFunc("onStepHit");
+		}
+		#end
 	}
 
 	var lightningStrikeBeat:Int = 0;
@@ -2449,6 +2507,85 @@ class PlayState extends MusicBeatState
 			lightningStrikeShit();
 		}
 	}
+
+	public function startScript()
+	{
+		#if HSCRIPT
+		var formattedFolder:String = Paths.formatToSongPath(SONG.song);
+
+		var path:String = Paths.hx(formattedFolder + '/script');
+
+		var hxdata:String = "";
+
+		if (Assets.exists(path))
+			hxdata = Assets.getText(path);
+
+		if (hxdata != "")
+		{
+			script = new Script();
+
+			script.setVariable("onSongStart", function()
+			{
+			});
+
+			script.setVariable("destroy", function()
+			{
+			});
+
+			script.setVariable("onCreate", function()
+			{
+			});
+
+			script.setVariable("onStartCountdown", function()
+			{
+			});
+
+			script.setVariable("onStepHit", function()
+			{
+			});
+
+			script.setVariable("onUpdate", function()
+			{
+			});
+
+			script.setVariable("import", function(lib:String, ?as:Null<String>) // Does this even work?
+			{
+				if (lib != null && Type.resolveClass(lib) != null)
+				{
+					script.setVariable(as != null ? as : lib, Type.resolveClass(lib));
+				}
+			});
+
+			script.setVariable("fromRGB", function(Red:Int, Green:Int, Blue:Int, Alpha:Int = 255)
+			{
+				return FlxColor.fromRGB(Red, Green, Blue, Alpha);
+			});
+
+			script.setVariable("curStep", curStep);
+			script.setVariable("bpm", SONG.bpm);
+
+			// PRESET CLASSES
+			script.setVariable("PlayState", instance);
+			script.setVariable("FlxTween", FlxTween);
+			script.setVariable("FlxEase", FlxEase);
+			script.setVariable("FlxSprite", FlxSprite);
+			script.setVariable("Math", Math);
+			script.setVariable("FlxG", FlxG);
+			script.setVariable("FlxTimer", FlxTimer);
+			script.setVariable("Main", Main);
+			script.setVariable("Conductor", Conductor);
+			script.setVariable("Std", Std);
+			script.setVariable("FlxTextBorderStyle", FlxTextBorderStyle);
+			script.setVariable("Paths", Paths);
+			script.setVariable("CENTER", FlxTextAlign.CENTER);
+			script.setVariable("FlxTextFormat", FlxTextFormat);
+			script.setVariable("FlxTextFormatMarkerPair", FlxTextFormatMarkerPair);
+			script.setVariable("Type", Type);
+
+			script.runScript(hxdata);
+		}
+		#end
+	}	
 
 	var curLight:Int = 0;
 }

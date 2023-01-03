@@ -69,6 +69,15 @@ class Paths
 		#end
 	}
 
+	inline static public function hx(key:String)
+	{
+		#if MODS
+		return fromModFolders('data/$key.hx', mod);
+		#else
+		return file('data/$key.hx');
+		#end
+	}
+
 	static public function sound(key:String)
 	{
 		#if MODS
@@ -157,5 +166,13 @@ class Paths
 	inline static public function getPackerAtlas(key:String)
 	{
 		return FlxAtlasFrames.fromSpriteSheetPacker(image(key), file('images/$key.txt'));
+	}
+
+	inline static public function formatToSongPath(path:String) {
+		var invalidChars = ~/[~&\\;:<>#]/;
+		var hideChars = ~/[.,'"%?!]/;
+
+		var path = invalidChars.split(path.replace(' ', '-')).join("-");
+		return hideChars.split(path).join("").toLowerCase();
 	}
 }
