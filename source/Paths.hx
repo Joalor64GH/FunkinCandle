@@ -24,47 +24,24 @@ class Paths
 		return path;
 	}
 
-        #if MODS
-	inline static public function fromModFolders(file:String)
-	{
-		return 'assets/mods/$file';
-	}
-	#end
-
 	inline static public function txt(key:String)
 	{
-		#if MODS
-		return fromModFolders('data/$key.txt');
-		#else
 		return file('data/$key.txt');
-		#end
 	}
 
 	inline static public function xml(key:String)
 	{
-		#if MODS
-		return fromModFolders('data/$key.xml');
-		#else
 		return file('data/$key.xml');
-		#end
 	}
 
 	inline static public function json(key:String)
 	{
-		#if MODS
-		return fromModFolders('data/$key.json');
-		#else
 		return file('data/$key.json');
-		#end
 	}
 
 	static public function sound(key:String)
 	{
-		#if MODS
-		return fromModFolders('sounds/$key.$SOUND_EXT');
-		#else
 		return file('sounds/$key.$SOUND_EXT');
-		#end
 	}
 
 	inline static public function soundRandom(key:String, min:Int, max:Int)
@@ -74,69 +51,33 @@ class Paths
 
 	inline static public function music(key:String)
 	{
-		#if MODS
-		return fromModFolders('music/$key.$SOUND_EXT');
-		#else
 		return file('music/$key.$SOUND_EXT');
-		#end
 	}
 
 	inline static public function voices(song:String)
 	{
-		#if MODS
-		return 'songs:assets/mods/songs/${song.toLowerCase()}/Voices.$SOUND_EXT';
-		#else
 		return 'songs:assets/songs/${song.toLowerCase()}/Voices.$SOUND_EXT';
-		#end
 	}
 
 	inline static public function inst(song:String)
 	{
-		#if MODS
-		return 'songs:assets/mods/songs/${song.toLowerCase()}/Inst.$SOUND_EXT';
-		#else
 		return 'songs:assets/songs/${song.toLowerCase()}/Inst.$SOUND_EXT';
-		#end
 	}
 
 	inline static public function image(key:String)
 	{
-		#if MODS
-		return fromModFolders('images/$key.png');
-		#else
 		return file('images/$key.png');
-		#end
 	}
 
 	inline static public function video(key:String)
 	{
-		#if MODS
-		return fromModFolders('videos/$key.mp4');
-		#else
 		return file('videos/$key.mp4');
-		#end
 	}
 
 	inline static public function font(key:String)
 	{
-		#if MODS
-		return 'assets/mods/fonts/$key';
-		#else
 		return 'assets/fonts/$key';
-		#end
 	}
-
-	#if MODS
-	inline static public function getModSparrowAtlas(key:String)
-	{
-		return FlxAtlasFrames.fromSparrow(image(key), fromModFolders('images/$key.xml'));
-	}
-
-	inline static public function getModPackerAtlas(key:String)
-	{
-		return FlxAtlasFrames.fromSpriteSheetPacker(image(key), fromModFolders('images/$key.txt'));
-	}
-	#end
 
 	inline static public function getSparrowAtlas(key:String)
 	{
@@ -146,5 +87,91 @@ class Paths
 	inline static public function getPackerAtlas(key:String)
 	{
 		return FlxAtlasFrames.fromSpriteSheetPacker(image(key), file('images/$key.txt'));
+	}
+}
+
+#if MODS
+class ModPaths extends Paths
+{
+	inline public static var SOUND_EXT = Paths.SOUND_EXT;
+
+	static final var currentLevel:String = Paths.currentLevel;
+
+	inline static public function file(file:String)
+	{
+		var path = "";
+		if (mod != null)
+			path = 'assets/mods/$mod/$file';
+		else
+			path = 'assets/mods/$file';
+		if (OpenFlAssets.exists(path))
+			return path;
+
+		return 'assets/mods';
+	}
+
+	inline static public function Modtxt(key:String, mod:String)
+	{
+		return file('data/$key.txt', mod);
+	}
+
+	inline static public function Modxml(key:String, mod:String)
+	{
+		return file('data/$key.xml', mod);
+	}
+
+	inline static public function Modjson(key:String, mod:String)
+	{
+		return file('data/$key.json', mod);
+	}
+
+	static public function Modsound(key:String, mod:String)
+	{
+		return file('sounds/$key.$SOUND_EXT', mod);
+	}
+
+	inline static public function soundRandom(key:String, min:Int, max:Int, mod:String)
+	{
+		return sound(key + FlxG.random.int(min, max));
+	}
+
+	inline static public function Modmusic(key:String, mod:String)
+	{
+		return file('music/$key.$SOUND_EXT', mod);
+	}
+
+	inline static public function Modvoices(song:String, mod:String)
+	{
+		return 'songs:assets/mods/$mod/songs/${song.toLowerCase()}/Voices.$SOUND_EXT';
+	}
+
+	inline static public function Modinst(song:String, mod:String)
+	{
+		return 'songs:assets/mods/$mod/songs/${song.toLowerCase()}/Inst.$SOUND_EXT';
+	}
+
+	inline static public function Modimage(key:String, mod:String)
+	{
+		return file('images/$key.png', mod);
+	}
+
+	inline static public function Modvideo(key:String, mod:String)
+	{
+		return file('videos/$key.mp4', mod);
+	}
+
+	inline static public function Modfont(key:String, mod:String)
+	{
+		return 'assets/mods/$mod/fonts/$key';
+	}
+
+	inline static public function getModSparrowAtlas(key:String, mod:String)
+	{
+		return FlxAtlasFrames.fromSparrow(image(key, mod), file('images/$key.xml'));
+	}
+
+	inline static public function getModPackerAtlas(key:String, mod:String)
+	{
+		return FlxAtlasFrames.fromSpriteSheetPacker(image(key, mod), file('images/$key.txt'));
 	}
 }
