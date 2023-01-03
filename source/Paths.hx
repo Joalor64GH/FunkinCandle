@@ -29,6 +29,7 @@ class Paths
 	{
 		return 'mods/$file';
 	}
+	#end
 
 	inline static public function txt(key:String)
 	{
