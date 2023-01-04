@@ -123,7 +123,7 @@ class Paths
 		return modFolder('sounds/$key.$SOUND_EXT', mod);
 	}
 
-	inline static public function soundRandom(key:String, min:Int, max:Int, mod:String)
+	inline static public function ModsoundRandom(key:String, min:Int, max:Int, mod:String)
 	{
 		return Modsound(key + FlxG.random.int(min, max), mod);
 	}
