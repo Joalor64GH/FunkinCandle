@@ -132,7 +132,7 @@ class ModPaths extends Paths
 
 	inline static public function soundRandom(key:String, min:Int, max:Int, mod:String)
 	{
-		return sound(key + FlxG.random.int(min, max));
+		return Modsound(key + FlxG.random.int(min, max));
 	}
 
 	inline static public function Modmusic(key:String, mod:String)
@@ -167,12 +167,12 @@ class ModPaths extends Paths
 
 	inline static public function getModSparrowAtlas(key:String, mod:String)
 	{
-		return FlxAtlasFrames.fromSparrow(image(key, mod), file('images/$key.xml'));
+		return FlxAtlasFrames.fromSparrow(Modimage(key, mod), file('images/$key.xml'));
 	}
 
 	inline static public function getModPackerAtlas(key:String, mod:String)
 	{
-		return FlxAtlasFrames.fromSpriteSheetPacker(image(key, mod), file('images/$key.txt'));
+		return FlxAtlasFrames.fromSpriteSheetPacker(Modimage(key, mod), file('images/$key.txt'));
 	}
 }
 #end
