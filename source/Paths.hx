@@ -88,16 +88,9 @@ class Paths
 	{
 		return FlxAtlasFrames.fromSpriteSheetPacker(image(key), file('images/$key.txt'));
 	}
-}
 
-#if MODS
-class ModPaths extends Paths
-{
-	inline public static var SOUND_EXT = Paths.SOUND_EXT;
-
-	static final currentLevel:String = Paths.currentLevel;
-
-	inline static public function file(file:String, mod:String)
+	#if MODS
+	inline static public function modFolder(file:String, mod:String)
 	{
 		var path = "";
 		if (mod != null)
@@ -112,22 +105,22 @@ class ModPaths extends Paths
 
 	inline static public function Modtxt(key:String, mod:String)
 	{
-		return file('data/$key.txt', mod);
+		return modFolder('data/$key.txt', mod);
 	}
 
 	inline static public function Modxml(key:String, mod:String)
 	{
-		return file('data/$key.xml', mod);
+		return modFolder('data/$key.xml', mod);
 	}
 
 	inline static public function Modjson(key:String, mod:String)
 	{
-		return file('data/$key.json', mod);
+		return modFolder('data/$key.json', mod);
 	}
 
 	static public function Modsound(key:String, mod:String)
 	{
-		return file('sounds/$key.$SOUND_EXT', mod);
+		return modFolder('sounds/$key.$SOUND_EXT', mod);
 	}
 
 	inline static public function soundRandom(key:String, min:Int, max:Int, mod:String)
@@ -137,7 +130,7 @@ class ModPaths extends Paths
 
 	inline static public function Modmusic(key:String, mod:String)
 	{
-		return file('music/$key.$SOUND_EXT', mod);
+		return modFolder('music/$key.$SOUND_EXT', mod);
 	}
 
 	inline static public function Modvoices(song:String, mod:String)
@@ -152,12 +145,12 @@ class ModPaths extends Paths
 
 	inline static public function Modimage(key:String, mod:String)
 	{
-		return file('images/$key.png', mod);
+		return modFolder('images/$key.png', mod);
 	}
 
 	inline static public function Modvideo(key:String, mod:String)
 	{
-		return file('videos/$key.mp4', mod);
+		return modFolder('videos/$key.mp4', mod);
 	}
 
 	inline static public function Modfont(key:String, mod:String)
@@ -167,12 +160,11 @@ class ModPaths extends Paths
 
 	inline static public function getModSparrowAtlas(key:String, mod:String)
 	{
-		return FlxAtlasFrames.fromSparrow(Modimage(key, mod), file('images/$key.xml', mod));
+		return FlxAtlasFrames.fromSparrow(Modimage(key, mod), modFolder('images/$key.xml', mod));
 	}
 
 	inline static public function getModPackerAtlas(key:String, mod:String)
 	{
-		return FlxAtlasFrames.fromSpriteSheetPacker(Modimage(key, mod), file('images/$key.txt', mod));
+		return FlxAtlasFrames.fromSpriteSheetPacker(Modimage(key, mod), modFolder('images/$key.txt', mod));
 	}
 }
-#end

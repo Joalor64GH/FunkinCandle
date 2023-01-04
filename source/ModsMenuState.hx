@@ -7,7 +7,6 @@ import flixel.addons.transition.TransitionData;
 import flixel.addons.transition.FlxTransitionableState;
 import haxe.Resource;
 import flixel.text.FlxText;
-import Paths;
 
 class ModMenuState extends MusicBeatState 
 {
@@ -31,7 +30,7 @@ class ModMenuState extends MusicBeatState
         trace(CoolUtil.modList);
         for (i in FileSystem.readDirectory("assets/mods")) 
         {
-            var modJson = haxe.Json.parse(ModPaths.file('mods/$i/pack.json'));
+            var modJson = haxe.Json.parse(Paths.modFolder('mods/$i/pack.json'));
             var modName:String = modJson.name;
             modNameText.text = modName;
         }
