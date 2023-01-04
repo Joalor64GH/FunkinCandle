@@ -167,4 +167,5 @@ class Paths
 	{
 		return FlxAtlasFrames.fromSpriteSheetPacker(Modimage(key, mod), modFolder('images/$key.txt', mod));
 	}
+	#end
 }
