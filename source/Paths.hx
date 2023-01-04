@@ -97,7 +97,7 @@ class ModPaths extends Paths
 
 	static final currentLevel:String = Paths.currentLevel;
 
-	inline static public function file(file:String)
+	inline static public function file(file:String, mod:String)
 	{
 		var path = "";
 		if (mod != null)
